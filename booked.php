@@ -12,16 +12,20 @@ $s="select TOURIST_ID from TOURIST";
 $ss="select TICKET_ID from BOOK_TICKET";
 $re=mysqli_query($co,$s)or die("Error select");
 $ree=mysqli_query($co,$ss)or die("Error select");
+$max=0;
+$max1=0;
 
  while($row = $re->fetch_assoc() ){ 
     $id1=$row["TOURIST_ID"];
+	$max=$max>$id1?$max:$id1;
 }
 while($row = $ree->fetch_assoc() ){ 
     $id2=$row["TICKET_ID"];
+	$max1=$max>$id2?$max1:$id2;
 }
-echo($id2);
-$id=$id1+1;
-$tid=$id2+1;
+echo($max);
+$id=$max+1;
+$tid=$max1+1;
 $dt = date("Y/m/d");
 $qu="INSERT INTO `TOURIST` (`TOURIST_NAME`, `AGE`,`GENDER`,`CONTACT`,`TOURIST_ID`) VALUES ('".$name."','".$age."','".$gender."','".$phone."','".$id."')";
 $result=mysqli_query($co,$qu)or die("Error 1");

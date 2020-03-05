@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2020 at 10:01 AM
+-- Generation Time: Mar 05, 2020 at 11:47 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -42,7 +42,7 @@ CREATE TABLE `AMOUNT` (
 CREATE TABLE `BOOK_TICKET` (
   `TICKET_ID` varchar(30) NOT NULL,
   `DATE` varchar(30) NOT NULL,
-  `FARE` varchar(30) NOT NULL,
+  `FARE` varchar(30) NOT NULL DEFAULT '600',
   `RIDE_ID` varchar(30) NOT NULL,
   `TOURIST_ID` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -61,7 +61,9 @@ INSERT INTO `BOOK_TICKET` (`TICKET_ID`, `DATE`, `FARE`, `RIDE_ID`, `TOURIST_ID`)
 ('1006', '13/4/2018', '600', '2007', '8127'),
 ('1007', '13/4/2018', '600', '2008', '8128'),
 ('1008', '14/4/2018', '600', '2009', '8110'),
-('1009', '14/4/2018', '600', '2010', '8129');
+('1009', '14/4/2018', '600', '2010', '8129'),
+('1010', '2020/03/05', '600', '', '10'),
+('1011', '2020/03/05', '600', '', '11');
 
 -- --------------------------------------------------------
 
@@ -205,7 +207,8 @@ CREATE TABLE `TOURIST` (
 
 INSERT INTO `TOURIST` (`TOURIST_ID`, `TOURIST_NAME`, `AGE`, `GENDER`, `CONTACT`) VALUES
 ('1', 'hhh', '23', 'm', '123'),
-('10', 'dd', '', '', '1'),
+('10', 'fffwwQQ', '22', 'm', '223333'),
+('11', 'fffwwQQ', '22', 'm', '223333'),
 ('2', 'vvvv', '14', 'm', '1223'),
 ('3', 'vvvv', '14', 'm', '1223'),
 ('4', 'vvvv', '14', 'm', '1223'),
@@ -243,9 +246,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indexes for table `BOOK_TICKET`
 --
 ALTER TABLE `BOOK_TICKET`
-  ADD PRIMARY KEY (`TICKET_ID`),
-  ADD KEY `RIDE_ID` (`RIDE_ID`),
-  ADD KEY `TOURIST_ID` (`TOURIST_ID`);
+  ADD PRIMARY KEY (`TICKET_ID`);
 
 --
 -- Indexes for table `KIOSK`
@@ -290,37 +291,6 @@ ALTER TABLE `TOURIST`
 ALTER TABLE `VISIT`
   ADD KEY `KIOSK_ID` (`KIOSK_ID`),
   ADD KEY `TOURIST_ID` (`TOURIST_ID`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `BOOK_TICKET`
---
-ALTER TABLE `BOOK_TICKET`
-  ADD CONSTRAINT `BOOK_TICKET_ibfk_1` FOREIGN KEY (`RIDE_ID`) REFERENCES `RIDE` (`RIDE_ID`),
-  ADD CONSTRAINT `BOOK_TICKET_ibfk_2` FOREIGN KEY (`TOURIST_ID`) REFERENCES `TOURIST` (`TOURIST_ID`);
-
---
--- Constraints for table `MANAGES`
---
-ALTER TABLE `MANAGES`
-  ADD CONSTRAINT `MANAGES_ibfk_1` FOREIGN KEY (`RIDE_ID`) REFERENCES `RIDE` (`RIDE_ID`),
-  ADD CONSTRAINT `MANAGES_ibfk_2` FOREIGN KEY (`STAFF_ID`) REFERENCES `STAFF` (`STAFF_ID`);
-
---
--- Constraints for table `MENU`
---
-ALTER TABLE `MENU`
-  ADD CONSTRAINT `MENU_ibfk_1` FOREIGN KEY (`KIOSK_ID`) REFERENCES `KIOSK` (`KIOSK_ID`);
-
---
--- Constraints for table `VISIT`
---
-ALTER TABLE `VISIT`
-  ADD CONSTRAINT `VISIT_ibfk_1` FOREIGN KEY (`KIOSK_ID`) REFERENCES `KIOSK` (`KIOSK_ID`),
-  ADD CONSTRAINT `VISIT_ibfk_2` FOREIGN KEY (`TOURIST_ID`) REFERENCES `TOURIST` (`TOURIST_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
